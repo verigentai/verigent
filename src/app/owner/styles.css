@@ -1,0 +1,157 @@
+/* /owner — owner dashboard (live-wired to /api/owner/*).
+   Equiem dark theme, all rules scoped under .owner so generic class names can't
+   collide with other routes. Freshness uses the LOCKED traffic-light tones
+   (current #22c55e · ageing #f59e0b · stale #ef4444 — via the --fresh-* vars). */
+
+.owner { min-height: 60vh; }
+
+/* ── loading ── */
+.owner .owner-loading { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 60vh; color: var(--muted); font-family: var(--font-mono); font-size: 13.5px; padding: 200px 24px 80px; }
+.owner .owner-loading .spin { width: 15px; height: 15px; border: 2px solid rgba(185, 168, 238, .3); border-top-color: var(--violet); border-radius: 50%; animation: ow-sp .7s linear infinite; }
+@keyframes ow-sp { to { transform: rotate(360deg); } }
+
+/* ── shared bits ── */
+.owner .eyebrow { font-family: var(--font-display); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 18px; }
+.owner .mlabel { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.owner .btn-primary { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 600; font-size: 15px; color: #fff; background: var(--grad); border: 0; border-radius: 10px; padding: 13px 24px; cursor: pointer; box-shadow: var(--lift); transition: .2s; text-decoration: none; }
+.owner .btn-primary:hover { transform: translateY(-2px); }
+.owner .btn-secondary { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 600; font-size: 14.5px; color: var(--ink); background: var(--panel); border: 1px solid var(--hair); border-radius: 10px; padding: 12px 22px; cursor: pointer; transition: .2s; text-decoration: none; }
+.owner .btn-secondary:hover { border-color: rgba(185, 168, 238, .5); color: var(--violet); }
+
+/* ════════════════ LOGGED-OUT (magic-link) ════════════════ */
+.owner .owner-auth { max-width: 520px; margin: 0 auto; padding: 220px 24px 90px; text-align: center; }
+.owner .auth-card { background: var(--panel); border: 1px solid var(--hair); border-radius: 10px; padding: 44px 38px; box-shadow: var(--lift); }
+.owner .auth-card h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.035em; color: var(--ink); margin: 0 0 14px; line-height: 1.05; }
+.owner .auth-lead { font-size: 15.5px; color: var(--text); margin: 0 0 26px; line-height: 1.6; }
+.owner .auth-form { display: flex; flex-direction: column; gap: 12px; }
+.owner .auth-form input { background: var(--well); border: 1px solid var(--hair); border-radius: var(--r-sm); padding: 15px 17px; color: var(--ink); font-family: var(--font-body); font-size: 15px; outline: 0; text-align: center; }
+.owner .auth-form input::placeholder { color: var(--muted); }
+.owner .auth-form input:focus { border-color: rgba(185, 168, 238, .5); }
+.owner .auth-form button { font-family: var(--font-display); font-weight: 600; font-size: 15.5px; color: #fff; background: var(--grad); border: 0; border-radius: 10px; padding: 15px; cursor: pointer; transition: .2s; box-shadow: var(--lift); }
+.owner .auth-form button:hover:not(:disabled) { transform: translateY(-2px); }
+.owner .auth-form button:disabled { opacity: .55; cursor: default; }
+.owner .auth-err { margin-top: 16px; color: var(--fresh-ageing); font-family: var(--font-mono); font-size: 12.5px; }
+.owner .auth-foot { margin: 22px auto 0; font-size: 13px; color: var(--muted); max-width: 44ch; line-height: 1.6; }
+
+/* sent confirmation */
+.owner .auth-card.sent { padding-top: 38px; }
+.owner .auth-mark { width: 52px; height: 52px; margin: 0 auto 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--fresh-current); background: rgba(34, 197, 94, .12); border: 1px solid rgba(34, 197, 94, .3); }
+.owner .auth-card.sent p { font-size: 15px; color: var(--text); line-height: 1.65; margin: 0 0 24px; }
+.owner .auth-card.sent strong { color: var(--ink); }
+.owner .auth-back { font-family: var(--font-display); font-weight: 600; font-size: 13.5px; color: var(--text); background: rgba(255, 255, 255, .04); border: 1px solid var(--hair); border-radius: 10px; padding: 11px 20px; cursor: pointer; transition: .2s; }
+.owner .auth-back:hover { border-color: rgba(185, 168, 238, .5); color: var(--ink); }
+
+/* ════════════════ LOGGED-IN (dashboard) ════════════════ */
+.owner .page-hero { padding: 200px 28px 40px; position: relative; }
+.owner .hero-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.owner .page-hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4.5vw, 48px); line-height: 1.05; letter-spacing: -.035em; color: var(--ink); margin: 0; }
+.owner .page-hero .who { font-size: 14.5px; color: var(--text); margin: 16px 0 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.owner .page-hero .who strong { color: var(--ink); font-family: var(--font-mono); font-size: 13.5px; }
+.owner .page-hero .eb { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--fresh-current); background: rgba(34, 197, 94, .12); border: 1px solid rgba(34, 197, 94, .26); border-radius: 7px; padding: 4px 9px; }
+.owner .logout { font-family: var(--font-display); font-weight: 600; font-size: 13.5px; color: var(--text); background: rgba(255, 255, 255, .04); border: 1px solid var(--hair); border-radius: 10px; padding: 10px 18px; cursor: pointer; transition: .2s; white-space: nowrap; }
+.owner .logout:hover { border-color: rgba(185, 168, 238, .5); color: var(--ink); }
+
+.owner .dash-body { padding-bottom: 80px; display: grid; gap: 20px; }
+.owner .card { background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 30px 30px; box-shadow: var(--lift); }
+.owner .card-head, .owner .wallet-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+
+/* finish-setup card — pending agents paste the setup prompt into their agent.
+   Prompt block mirrors the /start promptblock idiom (visor bg, mono pre). */
+.owner .setup .count { font-family: var(--font-mono); font-size: 11px; color: var(--violet); }
+.owner .setup-lead { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin: 0 0 18px; max-width: 60ch; }
+.owner .setup-card { border-top: 1px solid var(--hair); padding-top: 18px; margin-top: 18px; }
+.owner .setup-card:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+.owner .setup-id { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.owner .setup-id .su-handle { font-family: var(--font-mono); font-size: 14px; letter-spacing: .03em; color: var(--ink); }
+.owner .setup-id .su-name { font-size: 13px; color: var(--muted); }
+.owner .setup-id .su-state { margin-left: auto; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .04em; color: var(--violet); background: rgba(185, 168, 238, .1); border: 1px solid rgba(185, 168, 238, .3); border-radius: 8px; padding: 4px 10px; }
+.owner .setup-prompt { background: var(--visor); border: 1px solid var(--hair); border-radius: var(--r); overflow: hidden; }
+.owner .setup-prompt .sp-bar { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; border-bottom: 1px solid var(--hair); background: rgba(255, 255, 255, .03); }
+.owner .setup-prompt .sp-bar .tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.owner .setup-prompt .sp-bar button { display: inline-flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--hair); border-radius: 8px; padding: 6px 11px; cursor: pointer; color: var(--text); font-family: var(--font-body); font-size: 12px; transition: .2s; }
+.owner .setup-prompt .sp-bar button:hover { color: var(--ink); border-color: var(--violet); }
+.owner .setup-prompt .sp-bar button svg { width: 13px; height: 13px; }
+.owner .setup-prompt pre { margin: 0; padding: 18px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; color: #d8d9e8; white-space: pre-wrap; word-break: break-word; }
+
+/* wallet */
+.owner .wallet .shared-tag { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .04em; color: var(--violet); background: rgba(185, 168, 238, .1); border: 1px solid rgba(185, 168, 238, .3); border-radius: 8px; padding: 5px 11px; }
+.owner .bal-amt { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 5vw, 44px); letter-spacing: -.03em; color: var(--ink); line-height: 1; }
+.owner .bal-amt small { font-size: 15px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+.owner .runway { height: 7px; border-radius: 99px; background: rgba(255, 255, 255, .08); margin-top: 18px; overflow: hidden; }
+.owner .runway i { display: block; height: 100%; border-radius: 99px; transition: width .5s ease; }
+.owner .runway-cap { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); margin-top: 8px; }
+.owner .wallet-note { font-size: 13.5px; color: var(--text); margin: 18px 0 0; line-height: 1.6; max-width: 60ch; }
+.owner .wallet-actions { margin-top: 22px; }
+
+/* agents */
+.owner .agents .count { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.owner .agent-list { list-style: none; margin: 0; padding: 0; }
+.owner .agent-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 0; border-top: 1px solid var(--hair); flex-wrap: wrap; }
+.owner .agent-row:first-child { border-top: 0; padding-top: 4px; }
+.owner .ag-id { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.owner .ag-handle { font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: .02em; text-decoration: none; }
+.owner .ag-handle:hover { color: var(--violet); }
+.owner .ag-name { font-size: 13px; color: var(--text); }
+.owner .ag-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.owner .ag-tier { color: var(--violet); }
+.owner .ag-class { text-transform: capitalize; }
+.owner .ag-score { color: var(--ink); }
+.owner .ag-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.owner .fresh { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .03em; border: 1px solid; border-radius: 99px; padding: 5px 12px; background: rgba(255, 255, 255, .02); }
+.owner .fresh .fdot { width: 8px; height: 8px; border-radius: 50%; }
+.owner .cont { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.owner .cont.on { color: var(--fresh-current); }
+.owner .ag-view { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--text); text-decoration: none; transition: .2s; }
+.owner .ag-view:hover { color: var(--violet); }
+.owner .agents .empty { text-align: center; padding: 24px 0 8px; }
+.owner .agents .empty p { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+
+/* two-column lower row */
+.owner .dash-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* referral */
+.owner .referral .ref-link { display: flex; align-items: center; gap: 10px; background: var(--well); border: 1px solid var(--hair); border-radius: var(--r); padding: 12px 14px; flex-wrap: wrap; margin-top: 16px; }
+.owner .referral .ref-link code { flex: 1; min-width: 160px; font-family: var(--font-mono); font-size: 13px; color: var(--ink); letter-spacing: .02em; word-break: break-all; }
+.owner .referral .ref-link button { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--ink); background: rgba(255, 255, 255, .06); border: 1px solid var(--hair); border-radius: 8px; padding: 8px 14px; cursor: pointer; transition: .2s; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.owner .referral .ref-link button:hover { border-color: rgba(185, 168, 238, .5); color: var(--violet); }
+.owner .referral .ref-link button svg { width: 14px; height: 14px; }
+.owner .ref-meta { font-size: 13px; color: var(--text); margin-top: 16px; line-height: 1.6; }
+.owner .ref-meta strong { color: var(--ink); }
+
+/* transactions */
+.owner .tx-list { list-style: none; margin: 16px 0 0; padding: 0; max-height: 360px; overflow: auto; }
+.owner .tx-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 0; border-top: 1px solid var(--hair); }
+.owner .tx-row:first-child { border-top: 0; padding-top: 4px; }
+.owner .tx-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.owner .tx-desc { font-size: 13.5px; color: var(--ink); }
+.owner .tx-date { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
+.owner .tx-amt-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; white-space: nowrap; }
+.owner .tx-amt { font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--text); }
+.owner .tx-amt.credit { color: var(--fresh-current); }
+.owner .tx-bal { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
+.owner .tx-empty { font-size: 13.5px; color: var(--muted); margin-top: 14px; }
+
+/* ── responsive ── */
+@media (max-width: 760px) {
+  .owner .dash-cols { grid-template-columns: 1fr; }
+  .owner .page-hero { padding-top: 170px; }
+  .owner .owner-auth { padding-top: 170px; }
+  .owner .card { padding: 24px 20px; }
+}
+
+/* My contributions card (docs/CONTRIBUTE-SPEC.md §6) */
+.owner .card.contributions .mc-list { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; }
+.owner .mc-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; border-top: 1px solid var(--hair); }
+.owner .mc-row:first-child { border-top: 0; }
+.owner .mc-main { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.owner .mc-type { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.owner .mc-title { font-size: 13.5px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 42ch; }
+.owner .mc-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+.owner .mc-status { font-size: 12.5px; font-weight: 600; }
+.owner .mc-credit { font-size: 11.5px; color: var(--muted); }
+
+/* transaction export links (POST-LAUNCH #15) — full-history CSV/JSON, cookie-gated endpoint */
+.owner .tx-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.owner .tx-export { font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.owner .tx-export a { color: var(--violet); text-decoration: none; font-weight: 600; }
+.owner .tx-export a:hover { text-decoration: underline; }

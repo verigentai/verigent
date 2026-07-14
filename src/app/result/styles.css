@@ -1,0 +1,66 @@
+/* /result — per-run verification report (dark, DESIGN-SYSTEM tokens).
+   Visual conversion of the old Tailwind light theme to the site-wide dark
+   grammar (Linear layout, hairline panels, mono labels). Scoped under rs-.
+   Presentation only — no logic/data/copy changed. */
+
+.rs-wrap { max-width: 1080px; margin: 0 auto; padding: 140px 28px 96px; }
+
+/* ── header ── */
+.rs-kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--purple); font-weight: 600; }
+.rs-head { margin-top: 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.rs-name { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 5vw, 44px); line-height: 1; letter-spacing: -.03em; color: var(--ink); margin: 0; }
+.rs-tier { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 13px; font-weight: 700; padding: 6px 13px; border-radius: 7px; border: 1px solid; }
+.rs-sub { margin-top: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+
+/* ── on-chain attestation banner ── */
+.rs-attest { margin-top: 26px; border: 1px solid rgba(34,197,94,.3); background: rgba(34,197,94,.06); border-radius: var(--r); padding: 18px; }
+.rs-attest-head { display: flex; align-items: center; gap: 8px; }
+.rs-attest-head .rs-tick { color: #34d3a6; font-size: 18px; }
+.rs-attest-head b { color: #34d3a6; font-family: var(--font-display); font-weight: 700; }
+.rs-attest-code { margin-top: 10px; font-family: var(--font-mono); font-size: 13px; color: var(--text); word-break: break-all; overflow-wrap: anywhere; }
+.rs-attest-link { margin-top: 10px; display: inline-block; font-family: var(--font-mono); font-size: 11.5px; color: var(--violet); }
+.rs-attest-link:hover { text-decoration: underline; }
+
+/* ── composite + pillar score cards ── */
+.rs-scoregrid { margin-top: 26px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (min-width: 640px) { .rs-scoregrid { grid-template-columns: repeat(5, 1fr); } }
+.rs-scorecard { background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); box-shadow: var(--lift); padding: 18px; text-align: center; }
+.rs-scorecard.rs-composite { border-color: rgba(185,168,238,.35); }
+.rs-scorenum { font-family: var(--font-display); font-weight: 700; font-size: 32px; letter-spacing: -.02em; }
+.rs-scorelab { margin-top: 6px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+
+/* ── section headings ── */
+.rs-h2 { margin-top: 44px; font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: -.01em; color: var(--ink); display: flex; align-items: center; gap: 10px; }
+.rs-h2.rs-radar { margin-top: 40px; }
+.rs-wt { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--violet); background: rgba(185,168,238,.12); border: 1px solid rgba(185,168,238,.24); border-radius: 99px; padding: 3px 9px; letter-spacing: .04em; }
+.rs-note { margin-top: 6px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+/* ── dimension bars ── */
+.rs-bars { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+.rs-bar { display: flex; align-items: center; gap: 12px; }
+.rs-bar-label { flex: 0 0 auto; width: 150px; font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 640px) { .rs-bar-label { width: 180px; } .rs-bar-label.rs-wide { width: 210px; } }
+.rs-bar-track { flex: 1; height: 7px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.rs-bar-fill { display: block; height: 100%; border-radius: 99px; }
+.rs-bar-score { flex: 0 0 auto; width: 34px; text-align: right; font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+.rs-proof { flex: 0 0 auto; font-family: var(--font-mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; border: 1px solid; white-space: nowrap; }
+/* Longitudinal dim not measured THIS run — honest "measured on continuous verification" state (Ant
+   2026-07-07). Faded row, lilac note where the score sits. Copy firewall: positive framing only. */
+.rs-bar.rs-pending { opacity: .6; }
+.rs-bar .rs-bar-note { flex: 0 0 auto; font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--violet); white-space: nowrap; text-align: right; }
+
+/* ── test history ── */
+.rs-hist { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.rs-hist-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r-sm); padding: 11px 16px; font-size: 13px; }
+.rs-hist-date { color: var(--muted); font-family: var(--font-mono); }
+.rs-hist-comp { font-family: var(--font-mono); font-weight: 700; }
+.rs-hist-tier { font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 99px; border: 1px solid; }
+
+/* ── loading / error states ── */
+.rs-state { max-width: 560px; margin: 0 auto; padding: 220px 24px 140px; text-align: center; }
+.rs-state p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+.rs-state .rs-note { margin-top: 8px; font-size: 12px; }
+.rs-back { margin-top: 16px; display: inline-block; font-size: 13px; color: var(--violet); }
+.rs-back:hover { text-decoration: underline; }
+.rs-spin { display: inline-block; width: 32px; height: 32px; border: 3px solid rgba(185,168,238,.3); border-top-color: var(--violet); border-radius: 50%; animation: rs-sp .7s linear infinite; }
+@keyframes rs-sp { to { transform: rotate(360deg); } }

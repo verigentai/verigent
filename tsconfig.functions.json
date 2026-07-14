@@ -1,0 +1,19 @@
+{
+  "// note": "STEP-0 typecheck gate (review I1). The Next build's tsconfig.json EXCLUDES functions/ + workers/, so the money/scoring/auth surfaces were never typechecked. This standalone config typechecks them against @cloudflare/workers-types. Wired into `npm run typecheck` + prebuild.",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": ["functions/**/*.ts", "workers/**/*.ts"],
+  "exclude": ["node_modules"]
+}

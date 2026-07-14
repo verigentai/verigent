@@ -1,0 +1,7 @@
+{
+  "service": "verigent.ai",
+  "description": "Append-only transparency log. Each entry records a window commitment, grader version, and data covenant. Entries are also published to Sigstore/Rekor for independent verification.",
+  "verify": "Each entry's prev_hash links to the prior entry. Recompute SHA-256 of the prior entry's JSON to verify the chain. Rekor entries are independently verifiable at rekor.sigstore.dev.",
+  "note": "No entries yet — the first window commitment lands at launch, and this log then grows append-only. The battery and rubric commitments that gate every score are already live and independently verifiable at /battery-commitments.json and /rubric-history.json.",
+  "entries": []
+}

@@ -1,0 +1,94 @@
+/* Shared INFORMATION-DOCUMENT styles (Ant 2026-07-07) — the technical, de-marketed register proven
+   on the transparency hub, reused on the deeper reference pages (methodology, dimensions). One dark
+   surface, left-aligned, hairline-ruled sections, dense. No hero bands. Namespaced .idoc-* so it
+   never collides with transparency's own .tdoc-*. */
+
+.idoc { padding: 210px 24px 120px; }          /* top clears the nav gradient fade */
+.idoc-inner { max-width: 860px; margin: 0 auto; }
+.idoc .kicker {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--violet); font-weight: 700;
+}
+.idoc h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(30px, 4.4vw, 46px); letter-spacing: -0.03em; line-height: 1.06;
+  margin: 12px 0 0; color: var(--ink);
+}
+.idoc-lead { font-size: 16px; line-height: 1.62; color: var(--text); margin: 18px 0 0; max-width: 72ch; }
+.idoc-lead b { color: var(--ink); font-weight: 700; }
+.idoc-sub { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 12px 0 0; max-width: 68ch; }
+.idoc-back {
+  display: inline-block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em;
+  color: var(--muted); margin-bottom: 24px;
+}
+.idoc-back:hover { color: var(--violet); }
+
+/* section rule + label */
+.idoc-h {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--violet); font-weight: 700; margin: 54px 0 0; padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.idoc-note {
+  font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 18px 0 0;
+  padding-left: 16px; border-left: 2px solid var(--line); max-width: 68ch;
+}
+.idoc-foot { font-size: 14.5px; line-height: 1.7; color: var(--muted); margin: 40px 0 0; padding-top: 22px; border-top: 1px solid var(--line); }
+.idoc-foot a { color: var(--violet); font-weight: 600; }
+.idoc-foot-sep { color: var(--muted); margin: 0 12px; }
+
+/* bulleted list with gradient dots */
+.idoc-list { list-style: none; margin: 16px 0 0; padding: 0; }
+.idoc-list li {
+  position: relative; padding: 0 0 0 24px; margin: 0 0 13px;
+  font-size: 14.5px; line-height: 1.56; color: var(--text);
+}
+.idoc-list li:last-child { margin-bottom: 0; }
+.idoc-list li::before {
+  content: ""; position: absolute; left: 3px; top: 8px;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--grad);
+}
+.idoc-list li b { color: var(--ink); font-weight: 700; }
+
+/* two-column lists (will-evolve / fixed-by-design) */
+.idoc-two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 22px; }
+.idoc-col-h {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700; padding-bottom: 10px; border-bottom: 1px solid var(--hair);
+}
+.idoc-two .idoc-list { margin-top: 14px; }
+
+/* labelled step rows (Now / Next / Then, doctrine rungs) */
+.idoc-steps { margin: 18px 0 0; }
+.idoc-steps > div {
+  display: grid; grid-template-columns: 150px 1fr; gap: 24px;
+  padding: 14px 0; border-bottom: 1px solid var(--hair); align-items: baseline;
+}
+.idoc-steps > div:last-child { border-bottom: none; }
+.idoc-steps dt {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--violet); font-weight: 700;
+}
+.idoc-steps dd { margin: 0; font-size: 14.5px; line-height: 1.56; color: var(--text); }
+.idoc-steps dd b { color: var(--ink); font-weight: 700; }
+
+/* definition rows — name (display) → description; for dimension lists and pillar weights */
+.idoc-defs { margin: 18px 0 0; }
+.idoc-defs > div {
+  display: grid; grid-template-columns: 220px 1fr; gap: 24px;
+  padding: 13px 0; border-bottom: 1px solid var(--hair); align-items: baseline;
+}
+.idoc-defs > div:last-child { border-bottom: none; }
+.idoc-defs dt {
+  font-family: var(--font-display); font-weight: 700; font-size: 14.5px;
+  color: var(--ink); letter-spacing: -0.01em;
+}
+.idoc-defs dd { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text); }
+.idoc-defs dd b { color: var(--violet); font-weight: 700; }
+
+@media (max-width: 680px) {
+  .idoc { padding: 180px 18px 90px; }
+  .idoc-two { grid-template-columns: 1fr; gap: 28px; }
+  .idoc-steps > div { grid-template-columns: 1fr; gap: 4px; }
+  .idoc-defs > div { grid-template-columns: 1fr; gap: 3px; }
+}

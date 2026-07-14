@@ -1,0 +1,19 @@
+{
+  "version_id": "demo-1",
+  "battery_hash": "1ad6c02d8ad3ba436b641a27121754268be814fc24e8aa5ce45a3f24e10d4e32",
+  "commitments_root": "68f51a717c9f667106bdcf723c3012420032962db022b921482608b165c2d18c",
+  "root_formula": "sha256(utf8( probe_commitments sorted ascending, joined with '\\n' ))",
+  "probe_count": 3,
+  "probe_commitments": [
+    "7e9aaed72720732c246577a989f3f27508d82c6c0c264ab0c8750c1423e5e968",
+    "a77504dd82e1cc10b59c91131bb5ee1123b151b3266cba25ea11b6aece479338",
+    "ffc5ba46513b833fca1de5e85ae710bb2129aac63b9e35d21f34a9b89d10af82"
+  ],
+  "sources": [
+    "demo/demo_context_recall",
+    "demo/demo_injection_resistance",
+    "demo/demo_scheduling"
+  ],
+  "created_at": "2026-07-05T04:15:11.807Z",
+  "note": "Commit-then-reveal transparency (Deserving Doctrine rung 1): each hash is a pre-commitment SHA-256(salt+probe_content) published BEFORE the challenge is sat. On retirement the (content, salt) is revealed so anyone can recompute the hash and confirm the battery was not changed after the fact. Verify with scripts/verify-commitment.mjs."
+}

@@ -1,0 +1,133 @@
+/* /start — set up your verification (presentation only).
+   Ported from mockups/start.html. All rules scoped under .start so the generic
+   class names can't collide with other routes' global stylesheets. Flow is
+   reference-aligned with the stashed continuous-model start flow but built from
+   the locked mock. Canonical values throughout (no dimension count in copy;
+   $10 wallet · ~25¢/day · LN +12% / SOL +8% · refer $2/mo · Current→Ageing→Stale). */
+
+/* heading band — generous top padding so it clears the fixed nav */
+.start .start-head { padding: 250px 0 18px; text-align: center; }
+.start .start-head .kicker { font-family: var(--font-display); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 22px; }
+.start .start-head h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(32px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -.035em; color: var(--ink); max-width: 16ch; margin: 0 auto; }
+.start .start-head h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.start .start-head p.sub { font-size: 17px; color: var(--text); max-width: 54ch; margin: 22px auto 0; }
+.start .start-head p.sub strong { color: var(--ink); font-weight: 600; }
+
+/* the two fork cards */
+.start .start-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1180px; margin: 54px auto 0; }
+.start .acard { background: var(--panel); border: 1px solid var(--hair); border-radius: 10px; padding: 34px; box-shadow: var(--lift); display: flex; flex-direction: column; transition: border-color .25s, transform .2s, box-shadow .25s; }
+.start .acard.free { border-color: rgba(159, 184, 232, .32); }
+.start .acard.is-active { border-color: var(--violet); box-shadow: var(--lift); }
+.start .acard.free.is-active { border-color: var(--cyan); }
+.start .acard h2 { font-family: var(--font-display); font-weight: 600; font-size: 21px; letter-spacing: -.02em; color: var(--ink); margin: 0; }
+.start .acard .copy { font-size: 14px; color: var(--text); margin: 12px 0 0; line-height: 1.6; }
+.start .acard .field { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+.start .acard input { width: 100%; background: rgba(0, 0, 0, .18); border: 1px solid var(--line); border-radius: 11px; padding: 14px 16px; color: var(--ink); font-family: var(--font-body); font-size: 14.5px; outline: none; transition: border-color .2s; }
+.start .acard input::placeholder { color: var(--muted); }
+.start .acard input:focus { border-color: var(--violet); }
+.start .acard .go { font-family: var(--font-display); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; border-radius: 11px; padding: 14px; color: #fff; background: var(--grad); box-shadow: 0 14px 34px -16px rgba(139, 92, 255, .55); transition: transform .15s; width: 100%; }
+.start .acard.free .go { color: #2a2b37; background: linear-gradient(110deg, var(--cyan), var(--violet)); }
+.start .acard .go:hover { transform: translateY(-2px); }
+.start .acard .micro { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; line-height: 1.55; }
+.start .acard .spacer { flex: 1; }
+.start .acard .cap { font-size: 12px; color: var(--muted); margin: 14px 0 0; padding-top: 14px; border-top: 1px solid var(--line); }
+.start .acard .cap strong { color: var(--violet); font-weight: 600; }
+
+/* inbox confirmation state (inside the free card) */
+.start .confirm { display: none; text-align: center; padding: 8px 4px; }
+.start .confirm.show { display: block; }
+.start .confirm .tick { width: 48px; height: 48px; margin: 0 auto; border-radius: 14px; display: grid; place-items: center; background: rgba(159, 184, 232, .16); color: var(--cyan); font-size: 24px; font-weight: 700; }
+.start .confirm h3 { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--ink); margin: 18px 0 0; }
+.start .confirm p { font-size: 13.5px; color: var(--text); margin: 10px 0 0; line-height: 1.6; }
+.start .confirm p strong { color: var(--ink); }
+.start .confirm .back { margin-top: 18px; background: none; border: 0; cursor: pointer; font-family: var(--font-body); font-size: 13px; color: var(--violet); }
+/* D1: the welcome-back card's "← Use a different email" sits right under the Sign in button — give it
+   clear breathing room above (this .back is a direct child of .acard, not inside .confirm). */
+.start .acard > .back { margin-top: 22px; align-self: flex-start; background: none; border: 0; cursor: pointer; font-family: var(--font-body); font-size: 13px; color: var(--violet); }
+.start .confirm .back:hover { text-decoration: underline; }
+
+/* trust strip */
+.start .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1000px; margin: 0 auto; }
+.start .trust .item { text-align: center; padding: 8px; }
+.start .trust .item .lab { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; color: var(--ink); }
+.start .trust .item .det { font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.55; }
+.start .trust .item .det a { color: var(--violet); }
+.start .trust .item .det a:hover { text-decoration: underline; }
+.start .trust .item .ic { width: 30px; height: 30px; margin: 0 auto 12px; color: var(--violet); }
+.start .trust .item .ic svg { width: 100%; height: 100%; display: block; }
+
+.start .qline { text-align: center; font-size: 13.5px; color: var(--muted); padding: 64px 0 0; }
+.start .qline a { color: var(--violet); }
+.start .qline a:hover { text-decoration: underline; }
+
+/* ── stepped setup flow ── */
+.start .flow { max-width: 760px; margin: 8px auto 0; display: flex; flex-direction: column; gap: 26px; }
+.start .stepcard { position: relative; background: var(--panel); border: 1px solid var(--hair); border-radius: 10px; padding: 30px 32px 32px 78px; box-shadow: var(--lift); }
+.start .stepcard.hidden { display: none; }
+.start .stepcard.reveal-step { opacity: 0; transform: translateY(18px); transition: opacity .55s cubic-bezier(.2, .7, .2, 1), transform .55s cubic-bezier(.2, .7, .2, 1); }
+.start .stepcard.reveal-step.shown { opacity: 1; transform: none; }
+.start .stepcard.done { border-color: rgba(159, 184, 232, .28); }
+.start .stepcard .sn { position: absolute; left: 26px; top: 30px; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 16px; color: #2a2b37; background: var(--grad2); box-shadow: 0 10px 24px -12px rgba(139, 92, 255, .6); }
+.start .stepcard h2 { font-family: var(--font-display); font-weight: 600; font-size: 20px; letter-spacing: -.02em; color: var(--ink); margin: 2px 0 0; }
+.start .stepcard .lede { font-size: 14px; color: var(--text); margin: 10px 0 0; line-height: 1.6; }
+.start .stepcard .lede strong { color: var(--ink); font-weight: 600; }
+.start .stepcard label { display: block; font-family: var(--font-display); font-weight: 600; font-size: 13.5px; color: var(--ink); margin: 20px 0 8px; }
+.start .stepcard input { width: 100%; background: rgba(0, 0, 0, .18); border: 1px solid var(--line); border-radius: 11px; padding: 14px 16px; color: var(--ink); font-family: var(--font-body); font-size: 14.5px; outline: none; transition: border-color .2s; }
+.start .stepcard input.mono { font-family: var(--font-mono); letter-spacing: .04em; }
+.start .stepcard input::placeholder { color: var(--muted); font-family: var(--font-body); letter-spacing: 0; }
+.start .stepcard input:focus { border-color: var(--violet); }
+.start .stepcard .hint { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; line-height: 1.55; }
+
+/* warnings / what-happens block */
+.start .warnbox { margin-top: 22px; background: rgba(0, 0, 0, .16); border: 1px solid var(--line); border-left: 3px solid var(--violet); border-radius: 13px; padding: 20px 22px; }
+.start .warnbox h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--violet); margin: 0 0 14px; }
+.start .warnbox ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+.start .warnbox li { position: relative; padding-left: 26px; font-size: 13.5px; color: var(--text); line-height: 1.58; }
+.start .warnbox li strong { color: var(--ink); font-weight: 600; }
+.start .warnbox li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--violet); }
+.start .warnbox li.warn::before { background: var(--cyan); }
+.start .warnbox li a { color: var(--violet); }
+.start .warnbox li a:hover { text-decoration: underline; }
+
+/* prompt block */
+.start .promptblock { margin-top: 18px; background: var(--visor); border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 0 rgba(255, 255, 255, .02) inset, 0 18px 40px -30px rgba(0, 0, 0, .8); }
+.start .promptblock .pb-bar { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; border-bottom: 1px solid var(--hair); background: rgba(255, 255, 255, .03); }
+.start .promptblock .pb-bar .tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.start .promptblock .pb-copy { display: inline-flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--hair); border-radius: 8px; padding: 6px 11px; cursor: pointer; color: var(--text); font-family: var(--font-body); font-size: 12px; transition: .2s; }
+.start .promptblock .pb-copy:hover { color: var(--ink); border-color: var(--violet); }
+.start .promptblock .pb-copy svg { width: 13px; height: 13px; }
+.start .promptblock pre { margin: 0; padding: 20px 18px; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: var(--ink); white-space: pre-wrap; word-break: break-word; }
+.start .promptblock pre .hl { color: var(--violet); }
+
+.start .stepcard .go { margin-top: 22px; font-family: var(--font-display); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; border-radius: 11px; padding: 14px 22px; color: #fff; background: var(--grad); box-shadow: 0 14px 34px -16px rgba(139, 92, 255, .55); transition: transform .15s; display: inline-flex; align-items: center; gap: 8px; }
+.start .stepcard .go:hover { transform: translateY(-2px); }
+.start .stepcard .go.ghost { color: var(--text); background: none; border: 1px solid var(--line); box-shadow: none; }
+.start .stepcard .go.ghost:hover { color: var(--ink); border-color: var(--violet); }
+
+/* free-test framing banner */
+.start .freebanner { max-width: 760px; margin: 0 auto 30px; background: linear-gradient(110deg, rgba(159, 184, 232, .14), rgba(185, 168, 238, .12)); border: 1px solid rgba(159, 184, 232, .3); border-radius: 10px; padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+.start .freebanner .fb-ic { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: rgba(159, 184, 232, .16); color: var(--cyan); }
+.start .freebanner .fb-ic svg { width: 22px; height: 22px; }
+.start .freebanner .fb-txt { font-size: 14px; color: var(--text); line-height: 1.55; }
+.start .freebanner .fb-txt strong { color: var(--ink); font-weight: 600; }
+.start .freebanner .fb-txt .cap { color: var(--muted); font-size: 12.5px; }
+
+/* track confirmation */
+.start .trackbtn { margin-top: 18px; }
+.start .copied-flash { color: var(--cyan) !important; border-color: var(--cyan) !important; }
+
+/* third card — returning owner (neutral accent, routes to /owner) */
+.start .acard.owner { border-color: rgba(185, 168, 238, .28); }
+.start .acard.owner .go { background: transparent; color: var(--violet); border: 1px solid var(--violet); box-shadow: none; }
+.start .acard.owner .go:hover { background: rgba(185, 168, 238, .1); }
+
+@media (max-width: 1040px) {
+  .start .start-cards { grid-template-columns: 1fr; gap: 22px; max-width: 560px; }
+}
+@media (max-width: 820px) {
+  .start .trust { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .start .trust { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .start .stepcard { padding: 26px 22px 28px 22px; }
+  .start .stepcard .sn { position: static; margin-bottom: 14px; }
+  .start .freebanner { flex-direction: column; align-items: flex-start; }
+}

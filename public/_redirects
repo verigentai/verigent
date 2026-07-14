@@ -1,0 +1,6 @@
+/leaderboard /registry 301
+/leaderboard/ /registry/ 301
+/models /registry 301
+/models/ /registry/ 301
+/agent/* /agent/index.html 200
+/result/* /result/index.html 200

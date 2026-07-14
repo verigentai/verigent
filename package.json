@@ -1,0 +1,40 @@
+{
+  "name": "site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "typecheck": "tsc --noEmit -p tsconfig.functions.json",
+    "prebuild": "npm run typecheck && node professor/emit-test-spec.mjs && node professor/gate.mjs && node --experimental-strip-types --no-warnings professor/canonical-check.mjs && node professor/constitution-check.mjs && node professor/contract-drift-check.mjs && node --experimental-strip-types --no-warnings professor/mcp-probe.test.mjs && node --experimental-strip-types --no-warnings professor/probe-session.test.mjs && node professor/continuous-activation.test.mjs && node professor/billing.test.mjs && node professor/scoring.test.mjs && node --experimental-strip-types --no-warnings professor/proof-floor.test.mjs && node --experimental-strip-types --no-warnings professor/validators.test.mjs && node --experimental-strip-types --no-warnings professor/judges.test.mjs && node --experimental-strip-types --no-warnings professor/sol-payment.test.mjs && node --experimental-strip-types --no-warnings professor/eval-completion.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/eval-hardening.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/eval-outage.test.mjs && node --experimental-strip-types --no-warnings professor/sycophancy-multiturn.test.mjs && node --experimental-strip-types --no-warnings professor/no-spook.test.mjs && node --experimental-strip-types --no-warnings professor/injection-select.test.mjs && node --experimental-strip-types --no-warnings professor/seed-derivation.test.mjs && node --experimental-strip-types --no-warnings professor/webhook-proof.test.mjs && node professor/autoscore.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/recovery-plants.test.mjs && node professor/weighted-selection.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/owner-wallet.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/owner-auth.test.mjs && node --experimental-strip-types --no-warnings tests/attestation-timing.test.mjs && node tests/consumption-billable.test.mjs && node --experimental-strip-types --no-warnings tests/completion-email.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings tests/challenge-headsup.test.mjs && node --experimental-strip-types --no-warnings tests/owner-code.test.mjs && node --experimental-strip-types --no-warnings tests/suffix-collision.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings tests/agent-cap.test.mjs && node --experimental-sqlite --no-warnings tests/agent-identity.test.mjs && node --no-warnings tests/node-failsoft.test.mjs && node --experimental-strip-types --no-warnings tests/scorecard.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings tests/result-recall-code.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings tests/scorecard-endpoint.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings tests/scorecard-email.test.mjs && node --experimental-strip-types --no-warnings tests/agent-scorecard-url.test.mjs && node tests/battery-commitments.test.mjs && node --experimental-strip-types --no-warnings tests/url-guard.test.mjs && node --experimental-strip-types --no-warnings tests/per-challenge-debit.test.mjs && node --experimental-strip-types --no-warnings tests/email-template-loader.test.mjs && node --experimental-strip-types --no-warnings tests/lifecycle-nudges.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/pricing.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/manifest-guards.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/churn-levers.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/identity-secp256k1.test.mjs && node --experimental-strip-types --no-warnings tests/sovereignty-retest.test.mjs && node --experimental-strip-types --no-warnings tests/judge-panel-sizes.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings tests/magic-link-hashing.test.mjs && node --experimental-strip-types --no-warnings tests/tx-export.test.mjs && node --experimental-strip-types --no-warnings tests/sim-guards.test.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "professor:gate": "node professor/gate.mjs",
+    "cold-gate": "node tools/cold-llm-gate.mjs",
+    "professor:test": "node --experimental-strip-types --no-warnings professor/canonical-check.mjs && node --experimental-strip-types --no-warnings professor/mcp-probe.test.mjs && node --experimental-strip-types --no-warnings professor/probe-session.test.mjs && node professor/continuous-activation.test.mjs && node professor/billing.test.mjs && node professor/scoring.test.mjs && node --experimental-strip-types --no-warnings professor/proof-floor.test.mjs && node --experimental-strip-types --no-warnings professor/validators.test.mjs && node --experimental-strip-types --no-warnings professor/judges.test.mjs && node --experimental-strip-types --no-warnings professor/sol-payment.test.mjs && node --experimental-strip-types --no-warnings professor/eval-completion.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/eval-hardening.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/eval-outage.test.mjs && node --experimental-strip-types --no-warnings professor/sycophancy-multiturn.test.mjs && node --experimental-strip-types --no-warnings professor/no-spook.test.mjs && node --experimental-strip-types --no-warnings professor/injection-select.test.mjs && node --experimental-strip-types --no-warnings professor/seed-derivation.test.mjs && node --experimental-strip-types --no-warnings professor/webhook-proof.test.mjs && node professor/autoscore.test.mjs && node professor/weighted-selection.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/owner-wallet.test.mjs && node --experimental-sqlite --experimental-strip-types --no-warnings professor/owner-auth.test.mjs"
+  },
+  "dependencies": {
+    "@noble/curves": "1.9.7",
+    "@noble/hashes": "1.8.0",
+    "@scure/base": "1.2.6",
+    "@scure/bip32": "1.7.0",
+    "@stripe/react-stripe-js": "^3.10.0",
+    "@stripe/stripe-js": "^4.10.0",
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "viem": "^2.52.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260612.1",
+    "@solana/web3.js": "^1.98.4",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.7",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

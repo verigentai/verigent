@@ -1,0 +1,45 @@
+/* why-verify page-specific — dark hero band kicker/heading/lead
+   (global .kicker / p.big are only defined inside .feat, so the dark
+   .phero band needs its own on-brand treatment) */
+.wv-phero .kicker {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.wv-phero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 54px);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0 auto;
+}
+.wv-phero p.big {
+  font-size: 18px;
+  margin: 22px auto 0;
+}
+
+/* Founding Members — the page's one feature breakout (hard rule 7).
+   Breaks out wider than --w-content toward the nav margins, with
+   generous space around it, so it reads as "this matters". */
+.wv-founding-feature {
+  max-width: var(--w-feature, 1280px);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 48px 40px;
+}
+@media (max-width: 820px) {
+  .wv-founding-feature {
+    padding: 32px 24px;
+  }
+}
+
+/* DE-STRIPE (Ant 2026-07-04): drop the divider "key lines" flanking the two pull-quotes so the
+   quotes blend into their neighbouring reason sections. (1) the rule above the "cannot measure"
+   quote; (2) the rule above "reason three" (i.e. below Andrew Ng's quote). */
+#wv-q-measure { border-top: 0; }
+#wv-reason-three { border-top: 0; }

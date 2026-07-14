@@ -1,0 +1,118 @@
+/* /agents — the owner directory (spec §4). Dark theme, hairline-carded, matches the site grammar. */
+/* +60px top so the "My agents" H1 clears the nav's bottom fade (D4). */
+.dir { max-width: 1080px; margin: 0 auto; padding: 210px 28px 80px; min-height: 100vh; }
+.dir-head h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 5vw, 46px); letter-spacing: -.03em; color: var(--ink); margin: 0; }
+.dir-head p { color: var(--muted); font-size: 14.5px; margin: 12px 0 0; }
+.dir-head p b { color: var(--ink); font-weight: 600; }
+
+.dir-load { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; padding: 40px 0; }
+.dir-spin { width: 16px; height: 16px; border: 2px solid var(--line); border-top-color: var(--violet); border-radius: 50%; animation: dir-spin .8s linear infinite; }
+@keyframes dir-spin { to { transform: rotate(360deg); } }
+
+.dir-empty { margin-top: 40px; padding: 40px; text-align: center; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; }
+.dir-empty p { color: var(--muted); margin: 0 0 18px; }
+.dir-cta, .dir-empty .dir-cta { display: inline-flex; font-family: var(--font-display); font-weight: 600; font-size: 14px; color: #2a2b37; background: var(--violet); padding: 12px 22px; border-radius: 10px; }
+
+.dir-grid { margin-top: 34px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.dir-card { display: flex; flex-direction: column; gap: 9px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; transition: border-color .18s, transform .18s; text-decoration: none; }
+.dir-card:hover { border-color: var(--violet); transform: translateY(-2px); }
+.dc-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.dc-name { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink); letter-spacing: -.02em; }
+.dc-founder { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: #2a2b37; background: var(--violet); border-radius: 5px; padding: 3px 6px; white-space: nowrap; }
+.dc-handle { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.dc-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.dc-class { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--sky, #4f8cff); }
+.dc-tier { font-family: var(--font-mono); font-size: 11px; color: var(--ink); background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; }
+.dc-score { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--ink); margin-left: auto; }
+.dc-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; padding-top: 11px; border-top: 1px solid var(--line); }
+.dc-fresh { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.dc-dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+.fr-current .dc-dot { background: #22c55e; }
+.fr-ageing .dc-dot { background: #f0b46a; }
+.fr-stale .dc-dot { background: #8d8fa6; }
+.dc-bal { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+
+/* Set-up-a-new-agent tile */
+/* the tile is a <button> now (issues the key in place) — reset button chrome so it matches the cards */
+.dir-new { width: 100%; align-items: center; justify-content: center; text-align: center; gap: 6px; border-style: dashed; color: var(--muted); cursor: pointer; font-family: inherit; }
+.dir-new:hover { color: var(--ink); }
+.dir-new:disabled { cursor: default; opacity: .85; }
+.dn-plus { font-size: 26px; line-height: 1; color: var(--violet); }
+.dn-label { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; color: var(--ink); }
+.dn-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.5; }
+.dn-sub b { color: var(--ink); }
+
+/* STATE 2 confirm + STATE 3 sent — solid (not dashed) so it reads as an active decision, not a CTA. */
+.dir-confirm, .is-sent { border-style: solid; cursor: default; }
+.dir-confirm { border-color: var(--violet); }
+.dn-actions { display: flex; gap: 10px; margin-top: 12px; align-items: center; }
+.dn-send {
+  font-family: var(--font-display); font-weight: 600; font-size: 13px; color: #2a2b37;
+  background: var(--grad); border: 0; border-radius: 9px; padding: 9px 18px; cursor: pointer;
+  transition: transform .15s, opacity .15s;
+}
+.dn-send:hover:not(:disabled) { transform: translateY(-1px); }
+.dn-send:disabled { cursor: default; opacity: .7; }
+.dn-cancel {
+  font-family: var(--font-body); font-size: 13px; color: var(--muted); background: none;
+  border: 0; cursor: pointer; padding: 9px 6px;
+}
+.dn-cancel:hover:not(:disabled) { color: var(--ink); }
+.dn-cancel:disabled { cursor: default; opacity: .5; }
+
+/* inline owner sign-in on the directory */
+.dir-signin { margin-top: 30px; max-width: 420px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+.ds-note { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0 0 14px; }
+.ds-note b { color: var(--ink); font-weight: 600; }
+.ds-row { display: flex; gap: 8px; }
+.ds-row input { flex: 1; min-width: 0; box-sizing: border-box; background: rgba(0,0,0,.25); border: 1px solid var(--line); border-radius: 8px; padding: 0 12px; height: 42px; color: var(--ink); font-family: var(--font-body); font-size: 13.5px; outline: 0; }
+.ds-row input:focus { border-color: var(--violet); }
+.ds-row button { box-sizing: border-box; height: 42px; padding: 0 16px; background: var(--violet); color: #2a2b37; border: 0; border-radius: 8px; font-family: var(--font-display); font-weight: 600; font-size: 13.5px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; }
+.ds-row button:disabled { opacity: .5; cursor: default; }
+.ds-back { margin-top: 12px; background: none; border: 0; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0; }
+.ds-back:hover { color: var(--ink); }
+.ds-err { margin: 12px 0 0; font-size: 12.5px; color: #f0b46a; }
+
+/* ── Standings-board owner view (Ant 2026-07-13, dashboard concept 04) ─────────────────────────
+   Hierarchy: wallet band (money, distinct, Top up anchored RIGHT) → week line → ranked ROWS. */
+.dir-wallet { margin-top: 30px; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  background: rgba(110, 231, 183, .05); border: 1px solid rgba(110, 231, 183, .35); border-radius: 12px; padding: 18px 22px; }
+.dw-figures { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+.dw-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #7ed8b4; }
+.dw-total { font-size: 30px; font-weight: 750; color: var(--ink); letter-spacing: -.5px; }
+.dw-sub { font-size: 13px; color: var(--muted); }
+.dw-topup { flex: none; padding: 11px 22px; border-radius: 9px; font-size: 14px; font-weight: 700; text-decoration: none;
+  color: #21312b; background: linear-gradient(110deg, #8fe6c0 0%, #6ee7b7 60%, #7ed8d4 100%); transition: filter .15s; }
+.dw-topup:hover { filter: brightness(1.07); }
+
+.dir-weekline { margin: 26px 2px 10px; font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px;
+  letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+.dir-rows { display: flex; flex-direction: column; gap: 10px; }
+.dir-row { display: flex; align-items: center; gap: 16px; background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 15px 20px; text-decoration: none; transition: border-color .18s, transform .18s; }
+.dir-row:hover { border-color: var(--violet); transform: translateY(-1px); }
+.dr-rank { flex: none; min-width: 52px; font-family: var(--font-mono, ui-monospace, monospace); font-size: 15px;
+  font-weight: 700; color: var(--violet); }
+.dr-id { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dr-name { font-size: 15px; font-weight: 650; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dr-founder { font-style: normal; margin-left: 8px; font-size: 10px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; color: #d7ccf5; background: rgba(185, 168, 238, .14); border: 1px solid rgba(185, 168, 238, .4);
+  border-radius: 5px; padding: 2px 6px; vertical-align: 2px; }
+.dr-handle { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11.5px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dr-fresh { flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.dr-bal { flex: none; min-width: 64px; text-align: right; font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 13px; color: #7ed8b4; }
+.dr-delta { flex: none; min-width: 52px; text-align: right; font-family: var(--font-mono, ui-monospace, monospace); font-size: 13px; font-weight: 700; }
+.dr-delta.d-up { color: #6ee7b7; }
+.dr-delta.d-down { color: #f0b46a; }
+.dr-delta.d-flat { color: var(--muted); font-weight: 400; }
+.dr-tier { flex: none; font-size: 12px; font-weight: 750; color: #d7ccf5; background: rgba(185, 168, 238, .14);
+  border: 1px solid rgba(185, 168, 238, .4); border-radius: 6px; padding: 3px 9px; }
+.dr-score { flex: none; min-width: 46px; text-align: right; font-size: 24px; font-weight: 750; color: var(--ink); letter-spacing: -.5px; }
+.dir-grid-new { margin-top: 14px; }
+@media (max-width: 720px) {
+  .dir-row { flex-wrap: wrap; gap: 8px 14px; }
+  .dr-id { flex-basis: 100%; order: -1; }
+  .dw-total { font-size: 24px; }
+}

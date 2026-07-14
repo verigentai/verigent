@@ -1,0 +1,103 @@
+/* privacy page-specific styles (prefixed pv-) */
+
+/* dark hero band heading treatment */
+.pv-phero .kicker {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.pv-lead-block {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pv-lead-block h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: -0.035em;
+  margin: 0;
+  line-height: 1.05;
+}
+.pv-lead-block .pv-updated {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin: 18px 0 0;
+  text-align: center;
+}
+.pv-lead-block .pv-intro {
+  font-size: 18px;
+  margin: 18px 0 0;
+}
+
+/* legal prose body */
+.pv-legal {
+  max-width: 760px;
+  margin: 14px auto 0;
+}
+.pv-legal h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 46px 0 10px;
+}
+.pv-legal h3:first-child {
+  margin-top: 0;
+}
+.pv-legal p {
+  font-size: 15.5px;
+  color: var(--text);
+  margin: 0 0 14px;
+  max-width: 68ch;
+}
+.pv-legal a.pv-inline {
+  color: var(--violet);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.pv-legal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pv-legal ul li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15.5px;
+  color: var(--text);
+  max-width: 66ch;
+}
+.pv-legal ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--violet);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.pv-legal ul li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.pv-legal .pv-note {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--violet);
+  background: var(--well);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin: 0 0 14px;
+  max-width: 68ch;
+}

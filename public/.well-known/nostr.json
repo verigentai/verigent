@@ -1,0 +1,14 @@
+{
+  "names": {
+    "ax7": "c05870bdfc5213ea881e10340fc070fd7bd848ad3b27109d8b50a334a4f20ebe",
+    "ax-7": "c05870bdfc5213ea881e10340fc070fd7bd848ad3b27109d8b50a334a4f20ebe"
+  },
+  "relays": {
+    "c05870bdfc5213ea881e10340fc070fd7bd848ad3b27109d8b50a334a4f20ebe": [
+      "wss://relay.damus.io",
+      "wss://relay.primal.net",
+      "wss://relay.snort.social",
+      "wss://nos.lol"
+    ]
+  }
+}

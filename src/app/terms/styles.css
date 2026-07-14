@@ -1,0 +1,178 @@
+/* terms page-specific styles (prefixed tm-) */
+
+/* dark hero band heading treatment */
+.tm-phero .kicker {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.tm-phero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: -0.035em;
+  margin: 0 auto;
+  max-width: 20ch;
+  line-height: 1.05;
+}
+.tm-phero .tm-updated {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 20px;
+  letter-spacing: 0.04em;
+}
+
+/* legal prose body */
+.tm-legal {
+  max-width: 780px;
+}
+.tm-legal .tm-lead {
+  font-size: 17px;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+.tm-legal h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.3vw, 26px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 54px 0 14px;
+  line-height: 1.15;
+}
+.tm-legal h3:first-of-type {
+  margin-top: 8px;
+}
+.tm-legal h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  margin: 26px 0 8px;
+}
+.tm-legal p {
+  font-size: 15px;
+  color: var(--text);
+  margin: 0 0 14px;
+  line-height: 1.62;
+}
+.tm-legal ul {
+  margin: 0 0 16px;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tm-legal li {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.55;
+  padding-left: 22px;
+  position: relative;
+}
+.tm-legal li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--violet);
+}
+.tm-legal a.tm-inline {
+  color: var(--violet);
+  font-weight: 500;
+  border-bottom: 1px solid rgba(185, 168, 238, 0.3);
+}
+.tm-legal a.tm-inline:hover {
+  border-bottom-color: var(--violet);
+}
+.tm-legal .tm-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* prominent covenant callout block within the legal flow */
+.tm-covenant-block {
+  background: var(--panel);
+  border: 1px solid rgba(185, 168, 238, 0.22);
+  border-radius: 10px;
+  padding: 34px 32px;
+  margin: 30px 0 10px;
+  box-shadow: var(--lift);
+}
+.tm-covenant-block h3 {
+  margin-top: 0;
+}
+.tm-covenant-block .tm-pledge {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 22px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--hair);
+}
+.tm-covenant-block .tm-pledge em {
+  font-style: normal;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* table of contents */
+.tm-toc {
+  background: var(--well);
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 0 0 44px;
+  box-shadow: var(--lift);
+}
+.tm-toc h4 {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+.tm-toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 2;
+  column-gap: 36px;
+}
+.tm-toc li {
+  padding: 5px 0;
+  font-size: 14px;
+  list-style: none;
+}
+/* the TOC sits inside .tm-legal, so suppress the ◇ bullet that .tm-legal li::before
+   would otherwise stamp behind each TOC number (the "messy ghost") */
+.tm-toc li::before {
+  content: none;
+}
+.tm-toc a {
+  color: var(--text);
+}
+.tm-toc a:hover {
+  color: var(--violet);
+}
+@media (max-width: 640px) {
+  .tm-toc ol {
+    columns: 1;
+  }
+}

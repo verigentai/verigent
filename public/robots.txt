@@ -1,0 +1,15 @@
+# Verigent — humans and agents both welcome.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /owner
+Disallow: /track
+Disallow: /result
+
+Sitemap: https://verigent.ai/sitemap.xml
+
+# Agent-facing discovery:
+#   /llms.txt                    how to read this site as an LLM
+#   /agents.txt                  machine-readable agent guidance
+#   /.well-known/verigent.json   verification API + registry pointers

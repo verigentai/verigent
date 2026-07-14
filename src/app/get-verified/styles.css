@@ -1,0 +1,138 @@
+/* PRICING — one continuous technical document (Ant 2026-07-07). NOT the banded-section system: a
+   single dark surface, the ~25¢/day rate as the hero, then a dense datasheet flowing down the page,
+   sections divided only by hairline rules. No .feat strips, no alternating backgrounds. */
+
+.pdoc {
+  padding: 210px 24px 110px;   /* top MUST clear the nav gradient fade (not just the nav) — 210px, or the
+                                  first heading fades under the gradient. Never seat content higher. */
+}
+.pdoc-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* hero — the rate */
+.pdoc-hero {
+  text-align: center;
+  padding-bottom: 6px;   /* NO border-bottom — the first section's pdoc-h border-top is the single
+                            divider; a border here too made the double line (Ant 2026-07-07). */
+}
+.pdoc .kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+  font-weight: 700;
+}
+.pdoc-amt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 92px);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--ink);
+  margin: 14px 0 0;
+}
+.pdoc-amt span {
+  font-size: 0.34em;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: -0.01em;
+  margin-left: 2px;
+}
+.pdoc-lead {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 20px auto 0;
+  max-width: 58ch;
+}
+.pdoc-lead strong { color: var(--ink); font-weight: 700; }
+
+/* section sub-heading — a datasheet label with a hairline rule above it, NOT a band header */
+.pdoc-h {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--violet);
+  font-weight: 700;
+  margin: 46px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.pdoc-note {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 12px 0 0;
+  max-width: 62ch;
+}
+
+/* label → value rows */
+.pdoc-rows { margin: 6px 0 0; }
+.pdoc-row {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 24px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--hair);
+  align-items: baseline;
+}
+.pdoc-row:last-child { border-bottom: none; }
+.pdoc-row dt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.pdoc-row dd {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.pdoc-row dd b { color: var(--violet); font-weight: 700; }
+
+/* inclusions */
+.pdoc-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+.pdoc-list li {
+  position: relative;
+  padding: 0 0 0 24px;
+  margin: 0 0 12px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.pdoc-list li:last-child { margin-bottom: 0; }
+.pdoc-list li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--grad);
+}
+.pdoc-list li b { color: var(--violet); font-weight: 700; }
+
+.pdoc-foot {
+  margin: 40px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
+}
+.pdoc-foot-sep { color: var(--muted); margin: 0 12px; }
+
+@media (max-width: 600px) {
+  .pdoc { padding: 180px 18px 80px; }
+  .pdoc-row { grid-template-columns: 1fr; gap: 3px; }
+  .pdoc-foot-sep { display: block; height: 0; overflow: hidden; margin: 8px 0; }
+}

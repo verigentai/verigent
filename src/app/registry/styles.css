@@ -1,0 +1,377 @@
+/* ════════ REGISTRY-SPECIFIC — reuses global tokens, classes prefixed rg- ════════ */
+/* Dark-only (DESIGN-SYSTEM §8): a clinically score-ranked dark table — dark rows, hairline
+   dividers, mono data, freshness dots keep their traffic-light colours. */
+
+/* registry body now sits on the STANDARD Verigent background (no dark hero band) — technical, not
+   marketing (Ant 2026-07-07). padding-top clears the fixed nav. */
+.feat.rg-body {
+  background: var(--bg);
+  /* clears the fixed-nav fade with generous headroom; bottom halved so the footer sits closer to the
+     Get-verified CTA (Ant 2026-07-07). */
+  padding: 250px 0 100px;
+}
+/* technical header — compact title + factual standings line, replaces the marketing hero */
+.rg-tophead { margin-bottom: 24px; }
+.rg-title-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.rg-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.rg-standings-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.rg-sub {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 10px 0 0;
+  max-width: 660px;
+}
+.rg-body .container {
+  max-width: 1080px;
+}
+
+/* search + filter bar — recessed control panel on the dark canvas */
+.rg-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin: 0;
+  background: var(--panel);
+  border: 1px solid var(--hair);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  box-shadow: var(--lift);
+  margin-bottom: 46px;
+}
+.rg-search {
+  flex: 1 1 280px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--well);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+}
+.rg-search svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(--muted);
+}
+.rg-search input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--ink);
+}
+.rg-search input::placeholder {
+  color: var(--muted);
+}
+/* no label now — the field is just the select, vertically centred so it lines up with the search box */
+.rg-field {
+  display: flex;
+  align-items: center;
+}
+.rg-field label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  padding-left: 2px;
+}
+.rg-field select {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--well);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-sm);
+  padding: 11px 30px 11px 13px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23b9a8ee' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 11px;
+}
+
+.rg-count {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 22px 0 14px;
+  padding-left: 2px;
+}
+
+/* Public baselines — independent frontier models Verigent runs itself. Own section above the main
+   register; the cards are identical, the chip is the only difference. */
+.rg-baselines {
+  margin-bottom: 40px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--hair);
+}
+.rg-baselines-intro {
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+/* baseline label chip — sits inline beside the name, same chip family as the founder chip but sky
+   accent so it reads as "not self-submitted" provenance, not a rank. */
+.rg-baseline-chip {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sky);
+  background: rgba(79, 140, 255, 0.10);
+  border: 1px solid rgba(79, 140, 255, 0.28);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* agent list — clinical dark register: hairline-bordered rows, mono data */
+.rg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rg-row {
+  display: grid;
+  grid-template-columns: 46px 1.6fr 1fr 1.1fr 64px;
+  align-items: center;
+  gap: 18px;
+  background: var(--panel);
+  border: 1px solid var(--hair);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  transition: background 0.15s ease, border-color 0.2s;
+}
+.rg-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.rg-tier {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-sm);
+  background: var(--grad);
+  color: #1d1e28;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+.rg-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.rg-handle {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+/* founding-member chip — sits inline beside the name */
+.rg-founder {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--violet);
+  background: rgba(185, 168, 238, 0.12);
+  border: 1px solid rgba(185, 168, 238, 0.28);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+/* referral standing chip — same family as the founder chip, sky accent */
+.rg-refstanding {
+  color: var(--sky);
+  background: rgba(79, 140, 255, 0.10);
+  border-color: rgba(79, 140, 255, 0.28);
+}
+/* track record — verifications on record, under the handle */
+.rg-track {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  opacity: 0.85;
+}
+.rg-class {
+  font-size: 13.5px;
+  color: var(--text);
+  font-weight: 500;
+}
+.rg-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.rg-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.rg-score {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-align: right;
+}
+.rg-empty {
+  display: none;
+  text-align: center;
+  font-size: 15px;
+  color: var(--muted);
+  padding: 40px 0;
+  font-family: var(--font-mono);
+}
+.rg-empty.show {
+  display: block;
+}
+
+/* closing CTA */
+.rg-cta {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 9px;
+  margin: 44px auto 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  background: var(--grad);
+  padding: 15px 30px;
+  border-radius: var(--r);
+  box-shadow: 0 16px 40px -14px rgba(139, 92, 255, 0.5);
+  transition: 0.2s;
+}
+.rg-cta:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 760px) {
+  .rg-row {
+    grid-template-columns: 40px 1fr 56px;
+    gap: 14px;
+    row-gap: 6px;
+  }
+  .rg-row .rg-class,
+  .rg-row .rg-proof {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .rg-tier {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+  }
+  .rg-score {
+    font-size: 20px;
+  }
+}
+
+/* "Standings published weekly" note on the dark registry hero — keeps the ratings-register framing
+   (the registry IS the standings; it just republishes weekly). Restrained, no game dressing. */
+.rg-standings {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 22px;
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; letter-spacing: .01em;
+  color: rgba(255, 255, 255, .72); background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .12); border-radius: 12px; padding: 11px 16px; max-width: 560px;
+}
+.rg-standings-dot { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; background: #8358d4; box-shadow: 0 0 0 4px rgba(131, 88, 212, .18); }
+
+/* Centre the registry hero to match the other main pages (home/dimensions/get-verified). */
+.rg-hero { text-align: center; max-width: 760px; margin: 0 auto; }
+.rg-hero p { margin-left: auto; margin-right: auto; }
+.rg-hero .rg-standings { text-align: left; margin-left: auto; margin-right: auto; }
+
+/* ── REGISTRY TABS (Ant 2026-07-07) ── Featured models / Public baselines. Linear-style underline
+   tabs replacing the stacked "baselines above the list" layout. Each tab honours search + filters. */
+.rg-tabs {
+  display: flex;
+  margin: 26px 0 0;
+  border-bottom: 1px solid var(--hair);
+}
+.rg-tab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin: 0 26px -1px 0;
+  padding: 8px 2px 13px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: color 0.16s, border-color 0.16s;
+}
+.rg-tab:hover { color: var(--ink); }
+.rg-tab.active { color: var(--ink); border-bottom-color: var(--violet); }
+.rg-tab-n {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--muted);
+  background: var(--well);
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  padding: 1px 8px;
+  min-width: 22px;
+  text-align: center;
+}
+.rg-tab.active .rg-tab-n { color: var(--violet); }
+.rg-tabpanel { padding-top: 24px; }

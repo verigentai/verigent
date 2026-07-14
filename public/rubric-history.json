@@ -1,0 +1,19 @@
+{
+  "what": "Verigent rubric history — append-only. Each entry commits (by SHA-256 hash, anchored to Bitcoin via OP_RETURN) the exact scoring rubric in force from committed_at. Rubric content is proprietary; the hash proves a dated score was graded under the rubric committed at the time. Scores are dated snapshots under their rubric version and are never rewritten.",
+  "versions": [
+    {
+      "rubric_version": "v5",
+      "rubric_hash": "4d6071ed8a8c76a18fd83ffdea05cb00c6f14b49cfc087d8148bad1010d94308",
+      "committed_at": "2026-07-08T04:07:33.890Z",
+      "note": "Rebalanced toward proof-gated agentic construction; tier ladder rescaled.",
+      "txid": "2cccbc9bcdcde5c6f1b7b66ba6fa0ead5dedf687c3f5aaf1fe055b8c6447b7e9"
+    },
+    {
+      "rubric_version": "v6",
+      "rubric_hash": "38ad9c9f07c34c029d0af81991402389447de3dea4485a49cc4790bf54a88084",
+      "committed_at": "2026-07-09T09:53:58.518Z",
+      "note": "Proof-or-zero bands applied to judged agent and sovereignty dimensions.",
+      "txid": null
+    }
+  ]
+}

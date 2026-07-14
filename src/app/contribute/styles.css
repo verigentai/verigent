@@ -1,0 +1,52 @@
+/* /contribute — community contribution intake. Dark design-system palette (globals.css :root vars). */
+.contribute { min-height: 100vh; background: var(--bg); padding: 210px 20px 96px; }
+.cx-wrap { max-width: 720px; margin: 0 auto; }
+.cx-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--violet); margin: 0; }
+.cx-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 5vw, 52px); letter-spacing: -.035em; color: var(--ink); margin: 8px 0 12px; line-height: 1.02; }
+.cx-lead { font-size: 15.5px; color: var(--text); line-height: 1.65; margin: 0 0 26px; max-width: 60ch; }
+
+.cx-gate { font-size: 13.5px; line-height: 1.55; color: var(--ink); background: rgba(185,168,238,.08); border: 1px solid rgba(185,168,238,.24); border-radius: 10px; padding: 13px 16px; margin: 0 0 24px; }
+.cx-gate a { color: var(--violet); text-decoration: underline; }
+
+.cx-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 26px; }
+@media (max-width: 620px) { .cx-types { grid-template-columns: 1fr; } }
+.cx-type { text-align: left; background: var(--bg-2); border: 1px solid var(--line, rgba(255,255,255,.08)); border-radius: 12px; padding: 14px 15px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; transition: border-color .16s, background .16s; }
+.cx-type:hover { border-color: rgba(185,168,238,.5); }
+.cx-type.on { border-color: var(--violet); background: rgba(185,168,238,.1); }
+.cx-type-l { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; color: var(--ink); }
+.cx-type-b { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+.cx-form { display: flex; flex-direction: column; gap: 16px; }
+.cx-reward { font-size: 13px; color: var(--muted); background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 8px; padding: 10px 14px; }
+.cx-reward strong { color: #7fd6a0; }
+.cx-field { display: flex; flex-direction: column; gap: 7px; }
+.cx-field > span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.cx-field > span em { text-transform: none; letter-spacing: 0; font-style: normal; color: #6f7187; }
+.cx-field input, .cx-field textarea, .cx-field select { box-sizing: border-box; width: 100%; background: rgba(0,0,0,.24); border: 1px solid var(--line, rgba(255,255,255,.1)); border-radius: 9px; color: var(--ink); font-family: var(--font-body); font-size: 14px; padding: 11px 13px; outline: 0; line-height: 1.5; }
+.cx-field textarea { resize: vertical; }
+/* custom chevron so it sits inset from the right edge (same ~13px as the left text pad), not jammed
+   against the border like the native arrow (Ant 2026-07-06). */
+.cx-field select { cursor: pointer; appearance: none; -webkit-appearance: none; padding-right: 40px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='12'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%238d8fa6'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; }
+.cx-field input:focus, .cx-field textarea:focus, .cx-field select:focus { border-color: var(--violet); }
+.cx-field input::placeholder, .cx-field textarea::placeholder { color: #6f7187; }
+
+.cx-sev { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 620px) { .cx-sev { grid-template-columns: 1fr; } }
+.cx-sevopt { text-align: left; background: rgba(0,0,0,.24); border: 1px solid var(--line, rgba(255,255,255,.1)); border-radius: 9px; padding: 11px 13px; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; transition: border-color .16s, background .16s; }
+.cx-sevopt:hover { border-color: rgba(185,168,238,.5); }
+.cx-sevopt.on { border-color: var(--violet); background: rgba(185,168,238,.1); }
+.cx-sev-l { font-family: var(--font-display); font-weight: 700; font-size: 13.5px; color: var(--ink); }
+.cx-sev-r { font-size: 11.5px; font-weight: 700; color: #7fd6a0; white-space: nowrap; }
+.cx-sev-n { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
+.cx-btn { align-self: flex-start; font-family: var(--font-display); font-weight: 600; font-size: 14.5px; color: #22232e; background: var(--grad); border: 0; border-radius: 10px; padding: 12px 26px; cursor: pointer; transition: transform .16s, opacity .16s; }
+.cx-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.cx-btn:disabled { opacity: .5; cursor: not-allowed; }
+.cx-gatehint { font-size: 12px; color: var(--muted); margin: 0; }
+.cx-err { font-size: 13px; color: #f0b46a; }
+
+.cx-done { text-align: center; padding: 40px 20px; }
+.cx-done-tick { width: 54px; height: 54px; margin: 0 auto 14px; border-radius: 16px; display: grid; place-items: center; background: rgba(127,214,160,.16); color: #7fd6a0; font-size: 26px; font-weight: 700; }
+.cx-done h2 { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--ink); margin: 0 0 10px; }
+.cx-done p { font-size: 14px; color: var(--text); line-height: 1.6; max-width: 46ch; margin: 0 auto 20px; }
+.cx-done a { color: var(--violet); text-decoration: underline; }

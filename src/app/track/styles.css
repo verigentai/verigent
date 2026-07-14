@@ -1,0 +1,285 @@
+/* /track — live verification run viewer (presentation only).
+   Ported from mockups/track.html. All rules scoped under .trackrun so the
+   generic class names (panel, overall, live, layout, factor…) can't collide
+   with other routes' global stylesheets. Locked model: 25 dims / 4 pillars
+   (Model 25 · Backbone 20 · Agent 30 · Sovereignty 25); freshness tones are the
+   locked traffic-light values Current #22c55e · Ageing #f59e0b · Stale #ef4444. */
+
+/* Hover pop-over (Ant 2026-07-10) — rolls over a "not tested" pillar or a "Starts next run" dim to
+   explain WHY it isn't scored this run. data-tip carries the copy; shows above the element on hover. */
+.trackrun .track-tip { cursor: help; border-bottom: 1px dotted rgba(255, 255, 255, .28); }
+/* The pop-over itself is rendered at the page root (React) and fixed to the viewport, so it is SOLID
+   (never inherits a dimmed pillar's opacity) and clamped away from the edge. */
+.track-pop {
+  position: fixed; transform: translate(-50%, -100%);
+  width: 244px; white-space: normal; text-align: left;
+  background: #2b2b36; color: #d7d8e2; border: 1px solid rgba(255, 255, 255, .14); border-radius: 9px;
+  padding: 11px 13px; font-size: 12px; font-weight: 400; line-height: 1.55;
+  box-shadow: 0 18px 44px -16px rgba(0, 0, 0, .8); z-index: 9999; pointer-events: none;
+}
+
+/* Honest anchor-failure state (Ant 2026-07-10) — amber, with a recovery path; never a fake ✓. */
+.trackrun .stage-item.failed .ico { background: #f59e0b; color: #201d0a; }
+.trackrun .anchor-fail {
+  margin-top: 10px; font-size: 13px; line-height: 1.55; color: #f0c98a;
+  background: rgba(245, 158, 11, .08); border: 1px solid rgba(245, 158, 11, .28); border-radius: 9px; padding: 11px 13px;
+}
+.trackrun .anchor-fail a { color: #ffd79a; text-decoration: underline; }
+
+/* Inline owner login on the completed run (Ant 2026-07-10) — email→code right here, then straight to the
+   full logged-in report. */
+.trackrun .track-login { display: flex; flex-direction: column; gap: 10px; max-width: 460px; }
+.trackrun .track-login-lead { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.trackrun .track-login-row { display: flex; gap: 10px; align-items: stretch; }
+.trackrun .track-login-field {
+  flex: 1; height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 10px;
+  background: rgba(0, 0, 0, .28); border: 1px solid var(--hair); color: var(--ink);
+  font-family: var(--font-body); font-size: 14px; outline: 0;
+}
+.trackrun .track-login-field:focus { border-color: var(--violet); }
+.trackrun .track-login .btn-view { white-space: nowrap; }
+.trackrun .track-login-err { margin: 0; font-size: 12.5px; color: #ff8a8a; }
+
+/* ── hero (own spacing; global .phero is flex-centred for short heroes) ── */
+/* Contained test-watching surface (Ant 2026-07-10): no site nav/footer, and a DEEPER smoky-purple wash
+   than the marketing site (#2a2b37) so it reads as its own focused environment. Cards darken in step so
+   their elevation over the background stays proportional ("fade together"). Everything else unchanged. */
+.trackrun {
+  --bg: #1b1b23;                    /* Ant 2026-07-10 — darker, calmer than the site; only a faint blue-purple lean, not rich */
+  --panel: #25252f;                 /* cards elevated over the new bg, matching its near-neutral hue */
+  --hair: rgba(255, 255, 255, .08); /* neutral hairlines — no lavender tint (the purple was too much) */
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 84px 0 90px;             /* top no longer needs to clear the removed fixed nav */
+  position: relative;
+}
+.trackrun .eyebrow { font-family: var(--font-display); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 18px; }
+.trackrun h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4.4vw, 48px); line-height: 1.05; letter-spacing: -.035em; color: var(--ink); margin: 0 0 10px; }
+.trackrun h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.trackrun .lead { font-size: 16.5px; color: var(--text); max-width: 60ch; margin: 0; }
+
+/* ── key-mode waiting state (run not started yet; auto-updating) ── */
+.trackrun .track-waiting { display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.trackrun .track-waiting .dir-spin { width: 16px; height: 16px; border: 2px solid var(--hair); border-top-color: var(--purple); border-radius: 50%; animation: track-spin .8s linear infinite; }
+@keyframes track-spin { to { transform: rotate(360deg); } }
+
+/* ── run header card ── */
+.trackrun .runhead { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 30px; margin-top: 34px; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 24px 26px; box-shadow: var(--lift); }
+.trackrun .runhead .agent { display: flex; align-items: center; gap: 15px; min-width: 0; }
+.trackrun .runhead .badge { width: 46px; height: 46px; flex: 0 0 auto; border-radius: var(--r); background: var(--grad); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: #23242f; }
+.trackrun .runhead .aname { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--ink); line-height: 1.1; }
+.trackrun .runhead .ahandle { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); letter-spacing: .04em; }
+.trackrun .runhead .meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-left: auto; }
+.trackrun .runhead .meta .m { display: flex; flex-direction: column; gap: 3px; }
+.trackrun .runhead .meta .mlab { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.trackrun .runhead .meta .mval { font-family: var(--font-mono); font-size: 13px; color: var(--ink); }
+.trackrun .live { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--sky); background: rgba(79, 140, 255, .16); border: 1px solid rgba(79, 140, 255, .4); border-radius: 99px; padding: 6px 13px; }
+.trackrun .live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 0 0 rgba(79, 140, 255, .6); animation: track-livepulse 1.8s ease-out infinite; }
+@keyframes track-livepulse { 0% { box-shadow: 0 0 0 0 rgba(79, 140, 255, .55); } 70% { box-shadow: 0 0 0 9px rgba(79, 140, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 140, 255, 0); } }
+/* Completed run — the status badge settles: no pulse, a green "done" tint instead of the live blue. */
+.trackrun .live.done { color: #22c55e; background: rgba(34, 197, 94, .14); border-color: rgba(34, 197, 94, .4); }
+.trackrun .live.done .dot { background: #22c55e; box-shadow: none; animation: none; }
+
+/* ── overall progress ── */
+.trackrun .overall { margin-top: 18px; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 22px 26px; box-shadow: var(--lift); }
+.trackrun .overall .row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 12px; }
+.trackrun .overall .row .lbl { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.trackrun .overall .row .pct { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--ink); }
+.trackrun .pbar { height: 9px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+/* Fill gradient SCROLLS right-to-left continuously so the bar always looks alive, even between the
+   1s width updates. Symmetric stop order (purple…purple) makes the 200% loop seamless. */
+.trackrun .pbar > i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--purple), var(--violet), var(--cyan), var(--violet), var(--purple)); background-size: 200% 100%; animation: pbar-flow 2.2s linear infinite; transition: width 1.1s cubic-bezier(.2, .7, .2, 1); }
+@keyframes pbar-flow { from { background-position: 200% 0; } to { background-position: 0 0; } }
+.trackrun .overall .eta { margin-top: 11px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+
+/* ── stage timeline + tally layout ── */
+.trackrun .layout { display: grid; grid-template-columns: 1.35fr .9fr; gap: 22px; margin-top: 18px; }
+@media (max-width: 880px) { .trackrun .layout { grid-template-columns: 1fr; } }
+.trackrun .panel { background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 24px 26px; box-shadow: var(--lift); }
+.trackrun .panel h3 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px; font-weight: 700; }
+
+.trackrun .stages { position: relative; display: flex; flex-direction: column; gap: 2px; }
+.trackrun .stage-item { position: relative; display: flex; gap: 16px; padding: 13px 0; }
+.trackrun .stage-item:not(:last-child)::before { content: ""; position: absolute; left: 13px; top: 34px; bottom: -6px; width: 2px; background: var(--hair); }
+.trackrun .stage-item.done:not(:last-child)::before { background: rgba(79, 140, 255, .5); }
+.trackrun .stage-item .ico { position: relative; z-index: 1; flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; font-weight: 700; border: 2px solid var(--hair); background: var(--visor); color: var(--muted); }
+.trackrun .stage-item.done .ico { background: var(--sky); border-color: var(--sky); color: #fff; }
+.trackrun .stage-item.active .ico { border-color: var(--sky); color: var(--sky); background: rgba(79, 140, 255, .16); animation: track-stagepulse 1.8s ease-in-out infinite; }
+@keyframes track-stagepulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(79, 140, 255, .45); } 50% { box-shadow: 0 0 0 7px rgba(79, 140, 255, 0); } }
+.trackrun .stage-item .body { min-width: 0; flex: 1; padding-top: 2px; }
+.trackrun .stage-item .slab { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; color: var(--ink); line-height: 1.2; }
+.trackrun .stage-item.pending .slab { color: var(--muted); }
+.trackrun .stage-item .sdesc { font-size: 12.5px; color: var(--text); margin-top: 4px; line-height: 1.45; }
+.trackrun .stage-item.pending .sdesc { color: var(--muted); opacity: .75; }
+.trackrun .stage-item .stag { display: inline-block; margin-top: 8px; font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 3px 9px; border-radius: 99px; }
+.trackrun .stag.t-done { color: var(--sky); background: rgba(79, 140, 255, .14); }
+.trackrun .stag.t-active { color: var(--sky); background: rgba(79, 140, 255, .2); }
+.trackrun .stag.t-async { color: var(--violet); background: rgba(185, 168, 238, .16); }
+.trackrun .stag.t-pending { color: var(--muted); background: rgba(255, 255, 255, .05); }
+.trackrun .stage-item .minibar { height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; margin-top: 11px; max-width: 280px; }
+.trackrun .stage-item .minibar > i { display: block; height: 100%; border-radius: 99px; background: var(--grad); transition: width 1.1s cubic-bezier(.2, .7, .2, 1); }
+.trackrun .stage-item .minimeta { font-family: var(--font-mono); font-size: 11px; color: var(--violet); margin-top: 7px; }
+.trackrun .commit-hash { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 7px; word-break: break-all; background: rgba(255, 255, 255, .04); border: 1px solid var(--hair); border-radius: 7px; padding: 6px 9px; display: inline-block; }
+/* live on-chain confirmation line — sits above the mempool link as each anchor/attestation fires. */
+.trackrun .attest-live { margin-top: 8px; font-size: 12.5px; font-weight: 600; color: #22c55e; }
+
+/* ── per-pillar tally ── */
+.trackrun .factor { margin-bottom: 18px; }
+.trackrun .factor:last-child { margin-bottom: 0; }
+.trackrun .factor .brow { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 7px; }
+.trackrun .factor .bname { font-family: var(--font-display); font-weight: 600; font-size: 13.5px; color: var(--ink); }
+.trackrun .factor .bcount { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.trackrun .factor .bbar { height: 8px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.trackrun .factor .bbar > i { display: block; height: 100%; border-radius: 99px; background: var(--grad); transition: width 1.1s cubic-bezier(.2, .7, .2, 1); }
+.trackrun .factor .bweight { font-family: var(--font-mono); font-size: 9.5px; color: var(--muted); letter-spacing: .08em; }
+
+/* ── freshness key ── */
+.trackrun .freshkey { display: flex; gap: 18px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--hair); }
+.trackrun .freshkey .fk { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
+.trackrun .freshkey .sw { width: 18px; height: 6px; border-radius: 99px; }
+.trackrun .sw.cur { background: #22c55e; }
+.trackrun .sw.age { background: #f59e0b; }
+.trackrun .sw.sta { background: #ef4444; }
+
+/* ── close-page note + report button ── */
+.trackrun .closenote { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 16px 22px; align-items: center; justify-content: space-between; background: var(--well); border: 1px solid var(--hair); border-radius: var(--r); padding: 20px 24px; }
+.trackrun .closenote p { margin: 0; font-size: 14px; color: var(--text); max-width: 54ch; }
+.trackrun .closenote p strong { color: var(--ink); }
+.trackrun .btn-report { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-display); font-weight: 600; font-size: 15px; padding: 13px 26px; border-radius: var(--r); flex: 0 0 auto; cursor: not-allowed; }
+.trackrun .btn-report.locked { color: var(--muted); background: rgba(255, 255, 255, .05); border: 1px solid var(--hair); }
+.trackrun .btn-report.locked::after { content: "locked until done"; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-left: 4px; }
+
+/* ── failure microcopy ── */
+.trackrun .failnote { margin-top: 18px; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 22px 26px; box-shadow: var(--lift); }
+.trackrun .failnote h4 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; font-weight: 700; }
+.trackrun .failnote ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.trackrun .failnote li { font-size: 13.5px; color: var(--text); line-height: 1.5; padding-left: 20px; position: relative; }
+.trackrun .failnote li::before { content: "•"; position: absolute; left: 0; color: var(--purple); }
+.trackrun .failnote li strong { color: var(--ink); }
+.trackrun .failnote a { color: var(--violet); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── per-dimension list under each pillar — each NAMED test lights up as it resolves ── */
+.trackrun .dimlist { list-style: none; margin: 9px 0 0; padding: 0; display: grid; gap: 3px; }
+.trackrun .dimlist li { display: flex; align-items: center; gap: 7px; font-size: 11.5px; line-height: 1.35; }
+.trackrun .dimlist .dim-ico { width: 13px; flex-shrink: 0; text-align: center; font-size: 11px; color: var(--muted); }
+.trackrun .dimlist .dim-name { color: var(--muted); }
+.trackrun .dimlist li.dim-done .dim-ico { color: var(--sky); }
+.trackrun .dimlist li.dim-done .dim-name { color: var(--sky); }
+/* Active dim = a solid sky CIRCLE with a ring pulsing outward (was a half-moon glyph whose square-ish
+   box-shadow read as a flashing square). border-radius:50% + the box-shadow ring = a circular pulse. */
+.trackrun .dimlist li.dim-active .dim-ico { display: inline-block; width: 8px; height: 8px; margin: 0 2.5px; border-radius: 50%; background: var(--sky); animation: track-dimpulse 1.6s ease-in-out infinite; }
+@keyframes track-dimpulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(79, 140, 255, .5); } 50% { box-shadow: 0 0 0 5px rgba(79, 140, 255, 0); } }
+.trackrun .dimlist li.dim-active .dim-name { color: var(--sky); font-weight: 600; }
+.trackrun .dimlist li.dim-pending { opacity: .55; }
+/* Up-front "not measured THIS run" states (Ant 2026-07-07): "next" = longitudinal (cross-run memory),
+   "paid" = Sovereignty tier. Faded like pending, with a small lilac note so the human sees from the
+   START what this run does and doesn't cover. Copy firewall: positive functional framing only. */
+.trackrun .dimlist li.dim-next, .trackrun .dimlist li.dim-paid { opacity: .6; }
+.trackrun .dimlist li.dim-next .dim-ico, .trackrun .dimlist li.dim-paid .dim-ico { color: var(--violet); }
+.trackrun .dimlist .dim-note { margin-left: auto; font-family: var(--font-mono); font-size: 9px; letter-spacing: .05em; text-transform: uppercase; color: var(--violet); white-space: nowrap; }
+
+/* ── P5 /track rework: joined run card · phase bar · email CTA · parallel side-branch · view-report ── */
+.trackrun .runcard { margin-top: 30px; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 22px 26px; box-shadow: var(--lift); }
+.trackrun .runhead-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; }
+.trackrun .runhead-row .agent { display: flex; align-items: center; gap: 15px; min-width: 0; }
+.trackrun .runhead-row .badge { width: 46px; height: 46px; flex: 0 0 auto; border-radius: var(--r); background: var(--grad); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: #23242f; }
+.trackrun .runhead-row .aname { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--ink); line-height: 1.1; }
+.trackrun .runhead-row .ahandle { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); letter-spacing: .04em; }
+.trackrun .runhead-row .meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-left: auto; }
+.trackrun .runhead-row .meta .m { display: flex; flex-direction: column; gap: 3px; }
+.trackrun .runhead-row .meta .mlab { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.trackrun .runhead-row .meta .mval { font-family: var(--font-mono); font-size: 13px; color: var(--ink); }
+/* overall progress now lives INSIDE the run card — drop its own chrome, add a divider */
+.trackrun .runcard .overall { margin-top: 20px; padding: 20px 0 0; background: none; border: 0; box-shadow: none; border-top: 1px solid var(--hair); }
+/* indeterminate skeleton bar (waiting on the first poll) */
+.trackrun .pbar.indet > i { animation: track-indet 1.4s ease-in-out infinite; }
+@keyframes track-indet { 0% { margin-left: 0; width: 18%; } 50% { margin-left: 55%; width: 34%; } 100% { margin-left: 100%; width: 12%; } }
+/* phase track: answering → grading → eval → done */
+.trackrun .phasetrack { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 13px; }
+.trackrun .phasetrack .ph { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--hair); color: var(--muted); }
+.trackrun .phasetrack .ph.ph-done { color: var(--sky); border-color: rgba(79,140,255,.4); background: rgba(79,140,255,.12); }
+.trackrun .phasetrack .ph.ph-active { color: #fff; border-color: var(--sky); background: rgba(79,140,255,.28); font-weight: 700; }
+/* email-sovereignty CTA — prominent, actionable */
+.trackrun .mailcta { display: flex; gap: 15px; margin-top: 18px; background: rgba(185,168,238,.1); border: 1px solid rgba(185,168,238,.3); border-radius: var(--r); padding: 18px 22px; }
+.trackrun .mailcta-ic { font-size: 22px; line-height: 1.2; }
+.trackrun .mailcta b { font-family: var(--font-display); font-size: 15px; color: var(--ink); }
+.trackrun .mailcta p { margin: 5px 0 0; font-size: 13px; color: var(--text); max-width: 62ch; line-height: 1.5; }
+/* recall-rebind notice — quiet, informational (not an alert); explains the identity merge. */
+.trackrun .recallnote { display: flex; gap: 15px; margin-top: 18px; background: var(--well); border: 1px solid var(--hair); border-radius: var(--r); padding: 16px 20px; }
+.trackrun .recallnote-ic { font-size: 20px; line-height: 1.2; }
+.trackrun .recallnote b { font-family: var(--font-display); font-size: 14.5px; color: var(--ink); }
+.trackrun .recallnote p { margin: 5px 0 0; font-size: 13px; color: var(--muted); max-width: 62ch; line-height: 1.5; }
+/* email-sovereignty parallel side-branch (kept off the numbered spine) */
+.trackrun .sidebranch { display: flex; gap: 14px; margin-top: 18px; padding: 15px 16px; border: 1px dashed var(--hair); border-radius: var(--r); background: rgba(255,255,255,.02); }
+.trackrun .sidebranch .sb-ico { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; border: 2px dashed rgba(185,168,238,.4); color: var(--violet); }
+.trackrun .sidebranch.done .sb-ico { border-style: solid; border-color: var(--sky); color: var(--sky); }
+.trackrun .sidebranch .sb-head { display: flex; align-items: center; gap: 4px; }
+.trackrun .sidebranch .sb-title { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--ink); }
+.trackrun .sidebranch .sb-desc { font-size: 12.5px; color: var(--text); margin-top: 4px; line-height: 1.45; }
+.trackrun .branchtag { font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); background: rgba(185,168,238,.14); border-radius: 99px; padding: 2px 7px; }
+/* view report — in the complete stage row, lilac, becomes a live button on completion */
+.trackrun .publishrow { margin-top: 11px; }
+.trackrun .btn-view { display: inline-flex; align-items: center; font-family: var(--font-display); font-weight: 600; font-size: 13px; padding: 8px 16px; border-radius: 8px; background: var(--grad); color: #23242f; text-decoration: none; }
+.trackrun .btn-view.locked { background: rgba(185,168,238,.14); border: 1px solid rgba(185,168,238,.3); color: var(--violet); cursor: default; }
+
+/* ── live activity feed — quiet terminal-style log of REAL, observed events; each new line flashes
+   once as it lands (Ant 2026-07-08). Sits between the run card and the timeline. Site palette only. ── */
+.trackrun .actfeed { margin-top: 18px; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r); padding: 18px 22px; box-shadow: var(--lift); }
+.trackrun .actfeed-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.trackrun .actfeed-head h3 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0; font-weight: 700; }
+.trackrun .actfeed-sub { font-family: var(--font-mono); font-size: 10px; color: var(--muted); opacity: .7; }
+/* No height cap: expanded shows EVERY event in full (a 300px scroll box with macOS's invisible
+   overlay scrollbar showed ~11 of 30 and read as false information — Ant 2026-07-08). Compact mode
+   is the default, so full height here is a deliberate user choice. */
+.trackrun .actlog { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.trackrun .actline { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-mono); font-size: 12px; line-height: 1.5; padding: 4px 8px; border-radius: 6px; color: var(--text); }
+.trackrun .actline .actbolt { flex: 0 0 auto; color: var(--sky); font-size: 11px; }
+.trackrun .actline .acttext { flex: 1; min-width: 0; }
+.trackrun .actline .actat { flex: 0 0 auto; color: var(--muted); font-size: 10.5px; letter-spacing: .04em; }
+.trackrun .actline.act-dimension .actbolt { color: #22c55e; }
+.trackrun .actline.act-eval .actbolt { color: var(--violet); }
+.trackrun .actline.act-anchor .actbolt { color: #f59e0b; }
+.trackrun .actline.actline-idle { color: var(--muted); }
+.trackrun .actline.actline-idle .actbolt { color: var(--muted); }
+.trackrun .actline.act-open .actbolt { color: var(--muted); }
+/* Compact-ticker chrome (Ant 2026-07-08): expand/collapse toggle sits at the head's right edge;
+   the watch line is the always-moving "we're checking" row with a small spinner. */
+.trackrun .actfeed-toggle { margin-left: auto; flex: 0 0 auto; background: none; border: 1px solid var(--hair); border-radius: 99px; padding: 3px 10px; font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: .06em; color: var(--muted); cursor: pointer; }
+.trackrun .actfeed-toggle:hover { color: var(--ink); border-color: var(--sky); }
+.trackrun .actline.actline-watch { color: var(--muted); font-size: 11.5px; }
+.trackrun .actline.actline-watch .actbolt { color: var(--sky); }
+.trackrun .actspin { display: inline-block; width: 9px; height: 9px; border: 1.5px solid rgba(79, 140, 255, .35); border-top-color: var(--sky); border-radius: 50%; animation: actspin 1s linear infinite; vertical-align: middle; }
+@keyframes actspin { to { transform: rotate(360deg); } }
+/* the "checked" beat of the watch-line cycle — green tick between polls */
+.trackrun .actline-watch .actcheck { color: #22c55e; font-size: 11px; }
+/* one-shot flash as a new event lands — a brief sky wash that fades out (no infinite loop). */
+.trackrun .actline.act-fresh { animation: act-flash 1.5s ease-out 1; }
+@keyframes act-flash {
+  0% { background: rgba(79, 140, 255, .28); }
+  100% { background: rgba(79, 140, 255, 0); }
+}
+
+/* ── Live-card highlight (Ant 2026-07-08) — the activity card is THE live-updating area, marked
+   subtly: a faint sky border wash + a small pulsing dot in the header. Understated by design
+   ("not standing out like dog balls"); settles to the plain panel once the run completes. ── */
+.trackrun .actfeed.actfeed-live { border-color: rgba(79, 140, 255, .32); box-shadow: 0 0 0 1px rgba(79, 140, 255, .07), 0 0 24px -8px rgba(79, 140, 255, .18), var(--lift); }
+.trackrun .actfeed-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sky); align-self: center; flex: 0 0 auto; animation: track-livepulse 1.8s ease-out infinite; }
+
+/* ── Typewriter reveal on NEW real event lines (Ant 2026-07-08) — the text of a freshly-landed line
+   types itself out. steps() over a max-width wipe in the feed's monospace face reads per-character.
+   Presentation only: fires once per real server event, never on a timer. ── */
+.trackrun .actline .acttext.act-type { display: inline-block; overflow: hidden; white-space: nowrap; text-overflow: clip; vertical-align: bottom; animation: act-type 1.1s steps(36, end) 1; }
+@keyframes act-type {
+  0% { max-width: 0; }
+  100% { max-width: 100%; }
+}
+
+/* Motion safety — all live-page ornamental animation stops dead under reduced motion; the real
+   content (events, counts, stages) is unaffected. */
+@media (prefers-reduced-motion: reduce) {
+  .trackrun .actline.act-fresh,
+  .trackrun .actline .acttext.act-type,
+  .trackrun .actfeed-dot,
+  .trackrun .actspin,
+  .trackrun .live .dot { animation: none; }
+}
