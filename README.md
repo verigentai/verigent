@@ -45,3 +45,12 @@ This is a source publication for verification, not a turnkey clone: files from t
 domain are absent, so a handful of imports intentionally don't resolve and the tree will
 not compile as-is. Nothing needed to *read and verify* the money, credential, or API
 behaviour is missing.
+
+
+## License
+
+**Source-available, all rights reserved.** This repository is published for transparency and
+audit — read it, verify us against it — but it is not open source: no license is granted to
+reuse, modify, or redeploy this code. Verigent's reusable tooling IS open source (Apache-2.0):
+[verify](https://github.com/verigentai/verify), [mcp-server](https://github.com/verigentai/mcp-server),
+and the SDK integration plugins.
